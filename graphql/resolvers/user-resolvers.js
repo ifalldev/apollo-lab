@@ -7,7 +7,7 @@ export default {
     return User.create({ firstName, lastName, ...rest });
   },
   login: async (parent, { email, password }) => {
-    const user = User.findOne({ email });
+    const user = await User.findOne({ email });
 
     if (!user) throw new Error('User not exist!');
 
