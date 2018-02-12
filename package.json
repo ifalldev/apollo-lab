@@ -1,0 +1,21 @@
+{
+  "name": "traversy",
+  "version": "0.0.0",
+  "description": "graphql back end lab",
+  "main": "index.js",
+  "author": "Caio Batista",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "babel-watch server.js"
+  },
+  "dependencies": {
+    "babel-watch": "^2.0.7",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
