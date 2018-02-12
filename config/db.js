@@ -1,4 +1,4 @@
-import { mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 import cons from './cons';
 
@@ -7,13 +7,9 @@ mongoose.Promise = global.Promise;
 mongoose.set('debug', true);
 
 try {
-  mongoose.connect(cons.DB_URL, {
-    useMongoClient: true,
-  });
+  mongoose.connect(cons.DB_URL);
 } catch(err) {
-  mongoose.createConnection(cons.DB_URL, {
-    useMongoClient: true,
-  })
+  mongoose.createConnection(cons.DB_URL)
 }
 
 mongoose.connection

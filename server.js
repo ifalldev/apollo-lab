@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 
 import cons from './config/cons';
 
+import './config/db';
+
 const app = express();
 
 app.use(bodyParser.json());
