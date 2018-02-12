@@ -9,6 +9,7 @@ import cons from './config/cons';
 import './config/db';
 import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
+import mocks from './mocks';
 
 const app = express();
 
@@ -28,8 +29,9 @@ app.use(cons.GRAPHQL_PATH, graphqlExpress({
 }));
 
 const graphQLServer = createServer(app);
-
-app.listen(cons.PORT, err => {
-  if(err)  return console.log('server error: ', err);
-  console.log('server is listening on port', cons.PORT);
-});
+mocks().then(() => {
+  app.listen(cons.PORT, err => {
+    if (err) return console.log('server error: ', err);
+    console.log('server is listening on port', cons.PORT);
+  });
+})
