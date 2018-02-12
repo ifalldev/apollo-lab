@@ -9,7 +9,12 @@ export default`
     getTweets: [Tweet]
   }
 
+  type Mutation {
+    createTweet(text: String!): Tweet
+  }
+
   schema {
     query: Query
+    mutation: Mutation
   }
 `;
