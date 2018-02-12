@@ -1,10 +1,14 @@
 export default`
+  scalar Date
+
   type Status {
     message: String!
   }
   type Tweet {
-    _id: ID
-    text: String
+    _id: ID!
+    text: String!
+    createdAt: Date!
+    updatedAt: Date!
   }
 
   type Query {
