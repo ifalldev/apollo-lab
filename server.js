@@ -23,7 +23,7 @@ app.use('/graphiql', graphiqlExpress({
   endpointURL: cons.GRAPHQL_PATH
 }));
 
-app.use(cons.GRAPHQL_PATH, graphiqlExpress({
+app.use(cons.GRAPHQL_PATH, graphqlExpress({
   schema
 }));
 
