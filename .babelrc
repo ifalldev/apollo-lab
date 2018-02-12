@@ -5,6 +5,7 @@
   ],
   "plugins": [
     "syntax-async-functions",
-    "transform-runtime"
+    "transform-runtime",
+    "transform-object-rest-spread"
   ]
 }
