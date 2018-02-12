@@ -1,9 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 
+import cons from './config/cons';
+
 const app = express();
 
+app.use(bodyParser.json());
 
-app.listen(4000, () => {
-  console.log('server is listening on 4000 port');
+app.listen(cons.PORT, err => {
+  if(err)  return console.log('server error: ', err);
+  console.log('server is listening on port', cons.PORT);
 })
