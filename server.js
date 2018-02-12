@@ -20,12 +20,16 @@ const schema = makeExecutableSchema({
 app.use(bodyParser.json());
 
 app.use('/graphiql', graphiqlExpress({
+  endpointURL: cons.GRAPHQL_PATH
+}));
+
+app.use(cons.GRAPHQL_PATH, graphiqlExpress({
   schema
-}))
+}));
 
-const graphQLServer = createServer(app)
+const graphQLServer = createServer(app);
 
-graphQLServer.listen(cons.PORT, err => {
+app.listen(cons.PORT, err => {
   if(err)  return console.log('server error: ', err);
   console.log('server is listening on port', cons.PORT);
-})
+});
