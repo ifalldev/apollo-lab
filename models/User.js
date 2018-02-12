@@ -35,6 +35,9 @@ UserSchema.methods = {
   },
 
   createToken() {
+    console.log('============================================');
+    console.log('CREATING TOKEN WITH ID', this)
+    console.log('============================================');
     return jwt.sign({
       _id: this._id
     }, cons.JWT_SECRET)

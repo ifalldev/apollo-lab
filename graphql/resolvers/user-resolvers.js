@@ -4,9 +4,11 @@ export default {
   signup: async (parent, { fullName, ...rest }) => {
     const [firstName, ...lastName] = fullName.split(' ');
     const user = await User.create({ firstName, lastName, ...rest });
-
+    console.log('============================================');
+    console.log('SIGNUP USER', user);
+    console.log('============================================');
     return {
-      token: user.createToken
+      token: user.createToken()
     }
   },
   login: async (parent, { email, password }) => {
