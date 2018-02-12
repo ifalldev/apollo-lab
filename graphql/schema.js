@@ -1,10 +1,11 @@
 export default`
   type Tweet {
-    _id: String
+    _id: ID
     text: String
   }
 
   type Query {
+    getTweet(_id: ID!): Tweet
     getTweets: [Tweet]
   }
 
