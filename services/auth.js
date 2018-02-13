@@ -2,6 +2,10 @@ import jwt from 'jsonwebtoken';
 
 import cons from '../config/cons';
 
+export async function requireAuth(user) {
+  if (!user || !user._id) throw new Error('Unauthorized');
+}
+
 export function decodeToken(token) {
   const arr = token.split(' ');
   if(arr[0] === 'Bearer'){

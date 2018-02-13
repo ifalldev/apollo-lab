@@ -1,12 +1,11 @@
 import Tweet from '../../models/Tweet';
+import { requireAuth } from '../../services/auth';
 
 export default {
   getTweet: (parent, { _id }) => Tweet.findById(_id),
   getTweets: () => Tweet.find({}).sort({ createdAt: -1 }),
-  createTweet: (parent, args, context) => {
-    console.log('============================================');
-    console.log('CONTEXT', context);
-    console.log('============================================');
+  createTweet: async (parent, args, { user }) => {
+    await requireAuth(user);
     return Tweet.create(args)
   },
   updateTweet: (parent, { _id, ...rest }) => Tweet.findByIdAndUpdate(_id, rest, { new: true }),
