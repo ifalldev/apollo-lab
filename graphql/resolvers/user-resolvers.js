@@ -13,11 +13,13 @@ export default {
   },
   login: async (parent, { email, password }) => {
     const user = await User.findOne({ email });
-
+    console.log('============================================');
+    console.log('LOGIN USER', user);
+    console.log('============================================');
     if (!user) throw new Error('User not exist!');
 
     if (!user.authenticateUser(password)) throw new Error('Password don\'t match');
 
-    return user;
+    return { token: user.createToken() };
   }
 }
