@@ -18,9 +18,6 @@ async function auth(req, res, next) {
     if (token != null) {
       const user = await decodeToken(token);
       req.user = user;
-      console.log('============================================');
-      console.log('DECODED USER', user);
-      console.log('============================================');
     } else {
       req.user = null;
     }

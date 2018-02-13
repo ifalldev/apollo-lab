@@ -1,25 +1,32 @@
 import User from '../../models/User';
+import { gate } from '../../services/auth';
 
 export default {
   signup: async (parent, { fullName, ...rest }) => {
-    const [firstName, ...lastName] = fullName.split(' ');
-    const user = await User.create({ firstName, lastName, ...rest });
-    console.log('============================================');
-    console.log('SIGNUP USER', user);
-    console.log('============================================');
-    return {
-      token: user.createToken()
+    try {
+      const [firstName, ...lastName] = fullName.split(' ');
+      const user = await User.create({ firstName, lastName, ...rest });
+
+      return { token: user.createToken() };
+    } catch (error) {
+      throw error;
     }
   },
+
   login: async (parent, { email, password }) => {
-    const user = await User.findOne({ email });
-    console.log('============================================');
-    console.log('LOGIN USER', user);
-    console.log('============================================');
-    if (!user) throw new Error('User not exist!');
+    try {
+      const user = await User.findOne({ email });
 
-    if (!user.authenticateUser(password)) throw new Error('Password don\'t match');
+      if (!user) throw new Error('User not exist!');
+      if (!user.authenticateUser(password)) throw new Error('Password don\'t match');
 
-    return { token: user.createToken() };
+      return { token: user.createToken() };
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  me: async(parent, args, { user }) => {
+    return gate(user, () => User.findById(user._id));
   }
 }

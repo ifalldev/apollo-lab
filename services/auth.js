@@ -19,3 +19,12 @@ export function decodeToken(token) {
 
   throw new Error('Token not valid')
 }
+
+export async function gate(user, callback) {
+  try {
+    await requireAuth(user);
+    return callback && callback();
+  } catch (error) {
+    throw error;
+  }
+}
