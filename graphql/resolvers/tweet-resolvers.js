@@ -11,7 +11,7 @@ export default {
   },
 
   createTweet: (parent, args, { user }) => {
-    return gate(user, () => Tweet.create(args));
+    return gate(user, () => Tweet.create({ ...args, user: user._id }));
   },
 
   updateTweet: (parent, { _id, ...rest }, { user }) => {

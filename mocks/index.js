@@ -11,7 +11,7 @@ export default async () => {
     await User.remove();
 
     await Array.from({ length: TWEET_TOTAL }).forEach(
-      async () => await Tweet.create({ text: faker.lorem.paragraphs(1) })
+      async () => await Tweet.create({ text: faker.lorem.sentence() })
     );
   } catch (err) {
     throw err;
