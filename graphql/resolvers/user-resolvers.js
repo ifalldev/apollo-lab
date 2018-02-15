@@ -1,9 +1,9 @@
 import User from '../../models/User';
-import { gate } from '../../services/auth';
+import {  gate } from '../../services/auth';
 
 export default {
   signup: async (parent, { fullName, ...rest }) => {
-    try {
+    try { 
       const [firstName, ...lastName] = fullName.split(' ');
       const user = await User.create({ firstName, lastName, ...rest });
 

@@ -18,4 +18,4 @@ mocks().then(() => {
     if (err) return console.log('server error: ', err);
     console.log('server is listening on port', cons.PORT);
   });
-})
+});
