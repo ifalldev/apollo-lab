@@ -4,15 +4,28 @@ import Tweet from '../models/Tweet';
 import User from '../models/User';
 
 const TWEET_TOTAL = 10;
-// console.log('MOCK TEST');
+const USER_TOTAL = 3;
+
 export default async () => {
   try {
     await Tweet.remove();
     await User.remove();
 
-    await Array.from({ length: TWEET_TOTAL }).forEach(
-      async () => await Tweet.create({ text: faker.lorem.sentence() })
-    );
+    await Array.from({ length: USER_TOTAL }).forEach(async (_, i) => {
+      const user = await User.create({
+        username: faker.internet.userName(),
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        avatar: `https://randomuser.me/api/portraits/women/${i}.jpg`,
+        password: 'q1w2e3'
+      });
+
+      await Array.from({ length: TWEET_TOTAL }).forEach(
+        async () => await Tweet.create({ text: faker.lorem.sentence(), user: user._id })
+      );
+    })
+
   } catch (err) {
     throw err;
   }

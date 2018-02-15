@@ -13,9 +13,9 @@ middleware(app);
 
 const graphQLServer = createServer(app);
 
-mocks().then(() => {
+// mocks().then(() => {
   app.listen(cons.PORT, err => {
     if (err) return console.log('server error: ', err);
     console.log('server is listening on port', cons.PORT);
   });
-});
+// });
