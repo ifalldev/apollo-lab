@@ -14,14 +14,33 @@ export default {
     return gate(user, () => Tweet.create({ ...args, user: user._id }));
   },
 
-  updateTweet: (parent, { _id, ...rest }, { user }) => {
-    return gate(user, () => Tweet.findByIdAndUpdate(_id, rest, { new: true }));
+  updateTweet: async (parent, { _id, ...rest }, { user }) => {
+    try {
+      const tweet = await Tweet.findOne({ _id, user: user._id });
+
+      if (!tweet) throw new Error('Not your tweet');
+      // como ja trouxemos o tweet para validação
+      // alteramos os dados diretamente nele
+      // iterando-o e comparando-o com os valores atualizados
+      Object.entries(rest).forEach(([key, value]) => {
+        tweet[key] = value;
+      })
+
+      return gate(user, () => tweet.save());
+    } catch (error) {
+      throw error;
+    }
   },
 
   deleteTweet: async(parent, { _id }, { user }) => {
     await gate(user);
     try {
-      await Tweet.findByIdAndRemove(_id);
+      const tweet = await Tweet.findOne({ _id, user: user._id });
+
+      if (!tweet) throw new Error('Not found');
+
+      await tweet.remove();
+
       return {
         message: 'Delete Success'
       }
