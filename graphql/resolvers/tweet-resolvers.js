@@ -14,6 +14,10 @@ export default {
     return gate(user, () => Tweet.create({ ...args, user: user._id }));
   },
 
+  getUserTweets: async (parent, args, { user }) => {
+    return gate(user, () => Tweet.find({ user: user._id }).sort({ createdAt: -1}));
+  },
+
   updateTweet: async (parent, { _id, ...rest }, { user }) => {
     try {
       const tweet = await Tweet.findOne({ _id, user: user._id });
